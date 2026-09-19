@@ -1,0 +1,9 @@
+<dialog open>
+  <h2>Почему не выполнено?</h2>
+  <form method="post" action="{% url 'failure-create' task.pk %}">{% csrf_token %}
+    <label>Теги <input name="tags" placeholder="усталость, неясно, отвлёкся"></label>
+    <label>Что произошло? <textarea name="text" required></textarea></label>
+    <button>Сохранить причину</button>
+    <button type="button" onclick="this.closest('dialog').remove()">Отмена</button>
+  </form>
+</dialog>

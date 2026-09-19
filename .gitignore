@@ -1,0 +1,26 @@
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+!.env.local.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+.venv/
+venv/
+
+# Django/local data
+db.sqlite3
+media/
+staticfiles/
+
+# Tooling and OS files
+.DS_Store
+.pytest_cache/
+.mypy_cache/
+.vscode/
+.idea/
+.vercel/

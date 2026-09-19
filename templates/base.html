@@ -1,0 +1,47 @@
+{% load static %}
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{% block title %}AimAI{% endblock %}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>document.documentElement.classList.add('styles-ready')</script>
+  <script src="https://unpkg.com/htmx.org@2.0.4"></script>
+  <style>
+    html:not(.styles-ready) body { visibility: hidden; }
+    body { background:#080a0b; color:#f4f7f3; }
+    .nav-item { color:rgba(255,255,255,.5); transition:.2s; }
+    .nav-item:hover, .nav-active { background:rgba(0,228,160,.1); color:#00e4a0; }
+    input, textarea, select { background:#171b1c!important; color:#fff!important; border:1px solid rgba(255,255,255,.12)!important; border-radius:10px!important; padding:12px!important; }
+    input:focus, textarea:focus, select:focus { border-color:#00e4a0!important; outline:none; box-shadow:0 0 0 3px rgba(0,228,160,.12); }
+    button { cursor:pointer; }
+    article, .panel { background:#111617; border:1px solid rgba(255,255,255,.09); border-radius:16px; padding:20px; margin-bottom:12px; }
+  </style>
+</head>
+<body>
+  <div class="min-h-screen lg:grid lg:grid-cols-[250px_1fr]">
+    <aside class="hidden border-r border-white/10 p-5 lg:sticky lg:top-0 lg:flex lg:h-screen lg:flex-col">
+      <a href="{% url 'task-list' %}" class="mb-10 flex items-center gap-3 text-xl font-semibold">
+        <img width="40" height="40" src="{% static 'images/aimai-logo.png' %}" class="h-9 w-9 object-contain" alt="AimAI">AimAI
+      </a>
+      <p class="mb-3 px-3 text-[10px] uppercase tracking-[.2em] text-white/25">Workspace</p>
+      <nav class="space-y-1">
+        <a class="nav-item {% if request.resolver_match.url_name == 'task-list' %}nav-active{% endif %} flex items-center gap-3 rounded-xl px-3 py-3 text-sm" href="{% url 'task-list' %}">⌂ <span>Главная</span></a>
+        <a class="nav-item {% if request.resolver_match.url_name == 'day-plan' %}nav-active{% endif %} flex items-center gap-3 rounded-xl px-3 py-3 text-sm" href="{% url 'day-plan' %}">◷ <span>План дня</span></a>
+        <a class="nav-item {% if 'focus' in request.resolver_match.url_name %}nav-active{% endif %} flex items-center gap-3 rounded-xl px-3 py-3 text-sm" href="{% url 'focus-home' %}">◉ <span>Фокус</span></a>
+        <a class="nav-item {% if request.resolver_match.url_name == 'insight-list' %}nav-active{% endif %} flex items-center gap-3 rounded-xl px-3 py-3 text-sm" href="{% url 'insight-list' %}">✦ <span>Инсайты</span></a>
+        <a class="nav-item {% if 'intervention' in request.resolver_match.url_name %}nav-active{% endif %} flex items-center gap-3 rounded-xl px-3 py-3 text-sm" href="{% url 'intervention-list' %}">↗ <span>Вмешательства</span></a>
+      </nav>
+      <div class="mt-auto rounded-2xl border border-white/10 bg-white/[.03] p-4"><p class="text-xs text-white/35">AimAI</p><p class="mt-2 text-sm text-white/60">Progress, not pressure.</p></div>
+    </aside>
+    <div class="min-w-0">
+      <header class="border-b border-white/10 px-5 py-4 lg:hidden">
+        <a href="{% url 'task-list' %}" class="flex items-center gap-2 font-semibold"><img width="32" height="32" src="{% static 'images/aimai-logo.png' %}" alt="AimAI">AimAI</a>
+        <nav class="mt-4 flex gap-2 overflow-x-auto text-xs"><a class="nav-item rounded-lg px-3 py-2" href="{% url 'task-list' %}">Главная</a><a class="nav-item rounded-lg px-3 py-2" href="{% url 'day-plan' %}">План</a><a class="nav-item rounded-lg px-3 py-2" href="{% url 'focus-home' %}">Фокус</a><a class="nav-item rounded-lg px-3 py-2" href="{% url 'insight-list' %}">Инсайты</a></nav>
+      </header>
+      <main class="mx-auto max-w-6xl px-5 py-8 sm:px-8 lg:px-12 lg:py-10">{% block content %}{% endblock %}</main>
+    </div>
+  </div>
+</body>
+</html>

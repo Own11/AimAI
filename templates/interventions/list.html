@@ -1,0 +1,4 @@
+{% extends 'base.html' %}{% block title %}Вмешательства — AimAI{% endblock %}{% block content %}<h1 class="text-3xl font-bold mb-6">Предложенные вмешательства</h1>
+{% for item in interventions %}<article><h2>{{ item.title }}</h2><p>{{ item.description }}</p><small>Задача: {{ item.task.title }}</small>
+{% if item.is_applied %}<p>✓ Применено</p>{% else %}<form method="post" action="{% url 'intervention-apply' item.pk %}">{% csrf_token %}<button>Применить</button></form>{% endif %}</article>{% empty %}<p>Пока нет предложений.</p>{% endfor %}
+{% endblock %}
